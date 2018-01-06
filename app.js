@@ -14,6 +14,7 @@ app.set("view engine", "ejs");
 var campGroundSchema = new mongoose.Schema({
     name: String,
     image: String,
+    description: String
 });
 
 var Campground = mongoose.model("Campground", campGroundSchema);
@@ -21,7 +22,8 @@ var Campground = mongoose.model("Campground", campGroundSchema);
 Campground.create(
     {
         name: "Granite Hill",
-        image: "https://static.pexels.com/photos/14287/pexels-photo-14287.jpeg"
+        image: "https://static.pexels.com/photos/14287/pexels-photo-14287.jpeg",
+        description: "This is a huge granite hill. No bathrooms, no water. Beautiful granite."
     }, function(err, campGround){
         if(err){
             console.log(err);
@@ -31,19 +33,6 @@ Campground.create(
         }
     }
 )
-*/
-
-/*
-var campgrounds = [
-    { name: "Salmon Creek", image: "https://static.pexels.com/photos/6714/light-forest-trees-morning.jpg" },
-    { name: "Granite Hill", image: "https://static.pexels.com/photos/14287/pexels-photo-14287.jpeg" },
-    { name: "Mountain Goat", image: "https://static.pexels.com/photos/112378/pexels-photo-112378.jpeg" },
-    { name: "Grand canyon", image: "https://static.pexels.com/photos/176381/pexels-photo-176381.jpeg" },
-    { name: "Salmon Creek", image: "https://static.pexels.com/photos/6714/light-forest-trees-morning.jpg" },
-    { name: "Granite Hill", image: "https://static.pexels.com/photos/14287/pexels-photo-14287.jpeg" },
-    { name: "Mountain Goat", image: "https://static.pexels.com/photos/112378/pexels-photo-112378.jpeg" },
-    { name: "Grand canyon", image: "https://static.pexels.com/photos/176381/pexels-photo-176381.jpeg" }
-];
 */
 
 
@@ -57,7 +46,7 @@ app.get("/campgrounds", function(req, res){
          console.log(err);
      }
      else{
-         res.render('campgrounds', {campgrounds: allCampgrounds});
+         res.render('index', {campgrounds: allCampgrounds});
      }
   });
 
@@ -69,7 +58,8 @@ app.post("/campgrounds", function(req, res){
     //redirect back to campgrounds
     var name = req.body.name;
     var image = req.body.image;
-    var campGround = { name: name, image: image};
+    var description = req.body.description;
+    var campGround = { name: name, image: image, description: description};
     Campground.create(campGround, function(err, newlyCreated){
         if(err){
             console.log("Error");
@@ -85,6 +75,18 @@ app.get("/campgrounds/new", function(req,res){
     res.render("new");
 });
 
+app.get("/campgrounds/:id", function(req,res){
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if(err){
+            console.log(err);
+        }
+        else{
+            res.render("show", {campground: foundCampground});
+        }
+    });
+})
+
 app.listen(3000, function(){
     console.log("Yelp Camp Server has started");
 });
+
