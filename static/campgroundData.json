@@ -1,0 +1,17 @@
+ [{
+     "name": "Widows Peak",
+     "image": "https://images.pexels.com/photos/45241/tent-camp-night-star-45241.jpeg?h=350&auto=compress&cs=tinysrgb",
+     "description": "The most precarious campground. Located 200 feet above Mt. Kahnuna in Nebraska. This is the most brave of campers."
+ }, {
+     "name": "Serpent Lake",
+     "image": "https://images.pexels.com/photos/709552/pexels-photo-709552.jpeg?h=350&auto=compress&cs=tinysrgb",
+     "description": "This campground is located in East China. It is known for its deep green rivers and beautiful wildlife."
+ }, {
+     "name": "Blue Ridges",
+     "image": "https://images.pexels.com/photos/346529/pexels-photo-346529.jpeg?h=350&auto=compress&cs=tinysrgb",
+     "description": "Located up 20,000 feet this is harsh terrain is for only the most seasoned campers."
+ }, {
+     "name": "Wild Alaska",
+     "image": "https://images.pexels.com/photos/792/wood-landscape-mountains-nature.jpg?h=350&auto=compress&cs=tinysrgb",
+     "description": "Located in beautiful Alaska. This campground has the best of America."
+ }]
