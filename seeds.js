@@ -27,7 +27,7 @@ function addComments(campground){
             console.log(err);
         }
         else{
-            campground.comments.push(comment);
+            campground.comments.push(comment._id);
             campground.save();
         }
     });

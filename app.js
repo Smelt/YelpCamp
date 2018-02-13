@@ -3,10 +3,10 @@ var express         = require('express'),
     bodyParser      = require('body-parser'),
     mongoose        = require('mongoose'),
     Campground      = require('./models/campground'),
-    Comment         = require('./models/comment'),
+    CommentModel    = require('./models/comment'),
     seedDB          = require('./seeds');
 
-
+mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine", "ejs");
@@ -55,7 +55,7 @@ app.get("/campgrounds/new", function(req,res){
     res.render("campgrounds/new");
 });
 
-app.get("/campgrounds/:id", function(req,res){
+ app.get("/campgrounds/:id", function(req,res){
     Campground.findById(req.params.id).populate("comments").exec(function(err,foundCampground){
         if(err){
             console.log(err);
@@ -64,8 +64,20 @@ app.get("/campgrounds/:id", function(req,res){
             res.render("campgrounds/show", {campground: foundCampground});
         }
     });
-})
+}) 
 
+/*
+app.get("/campgrounds/:id", function (req, res) {
+    Campground.findById(req.params.id, function (err, foundCampground) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.render("campgrounds/show", { campground: foundCampground });
+        }
+    });
+})
+*/
 app.get("/campgrounds/:id/comments/new", function (req, res) {
    Campground.findById(req.params.id, function(err,campground){
         if(err){
@@ -85,7 +97,7 @@ app.post("/campgrounds/:id/comments", function(req,res){
             console.log(err);
             res.redirect("/campgrounds");
         }else{
-            Comment.create(req.body.comment, function(err,comment){
+            CommentModel.create(req.body.comment, function(err,comment){
                 if(err){
                     console.log(err);
                 }
@@ -95,14 +107,14 @@ app.post("/campgrounds/:id/comments", function(req,res){
                     console.log(campground);
                     console.log("===========");
                     let url = "/campgrounds/" + req.params.id;
-                    //console.log("Added comment " + comment);
+                    //console.log("Added CommentModel " + CommentModel);
                     res.redirect(url);
                 }
             })          
         }
     })
-    //create new comment
-    //connect new comment to campground
+    //create new CommentModel
+    //connect new CommentModel to campground
     //redirect to campground show page
 
 });
