@@ -9,6 +9,7 @@ var express         = require('express'),
 mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/yelp_camp");
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 
@@ -104,8 +105,6 @@ app.post("/campgrounds/:id/comments", function(req,res){
                 else{
                     campground.comments.push(comment._id);
                     campground.save();
-                    console.log(campground);
-                    console.log("===========");
                     let url = "/campgrounds/" + req.params.id;
                     //console.log("Adde Comment "   Comment);
                     res.redirect(url);
