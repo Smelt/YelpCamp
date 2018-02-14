@@ -3,7 +3,7 @@ var express         = require('express'),
     bodyParser      = require('body-parser'),
     mongoose        = require('mongoose'),
     Campground      = require('./models/campground'),
-    CommentModel    = require('./models/comment'),
+    Comment    = require('./models/comment'),
     seedDB          = require('./seeds');
 
 mongoose.Promise = global.Promise;
@@ -97,7 +97,7 @@ app.post("/campgrounds/:id/comments", function(req,res){
             console.log(err);
             res.redirect("/campgrounds");
         }else{
-            CommentModel.create(req.body.comment, function(err,comment){
+            Comment.create(req.body.comment, function(err,comment){
                 if(err){
                     console.log(err);
                 }
@@ -107,14 +107,14 @@ app.post("/campgrounds/:id/comments", function(req,res){
                     console.log(campground);
                     console.log("===========");
                     let url = "/campgrounds/" + req.params.id;
-                    //console.log("Added CommentModel " + CommentModel);
+                    //console.log("Adde Comment "   Comment);
                     res.redirect(url);
                 }
             })          
         }
     })
-    //create new CommentModel
-    //connect new CommentModel to campground
+    //create ne Comment
+    //connect ne    Comment to campground
     //redirect to campground show page
 
 });
