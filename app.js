@@ -2,8 +2,11 @@ var express         = require('express'),
     app             = express(),
     bodyParser      = require('body-parser'),
     mongoose        = require('mongoose'),
+    passport        = require('passport'),
+    LocalStrategy   = require('passport-local'),
     Campground      = require('./models/campground'),
-    Comment    = require('./models/comment'),
+    Comment         = require('./models/comment'),
+    User            = require('./models/user'),
     seedDB          = require('./seeds');
 
 mongoose.Promise = global.Promise;
@@ -15,6 +18,19 @@ app.set("view engine", "ejs");
 
 seedDB();
 
+
+//Passport Configuration
+app.use(require("express-session")({
+    secret: "Best salt and pepper",
+    resave: false,
+    saveUninitialized: false
+}));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 
 app.get("/", function(req,res){
