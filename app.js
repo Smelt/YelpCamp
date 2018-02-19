@@ -13,7 +13,7 @@ app.use(express.static(__dirname + "/public"));
 app.set("view engine", "ejs");
 
 
-seedDB();
+//seedDB();
 
 
 
@@ -31,7 +31,7 @@ app.get("/campgrounds", function(req, res){
      }
   });
 
-   // res.render("campgrounds", {campgrounds: campgrounds});
+    res.render("campgrounds", {campgrounds: campgrounds});
 });
 
 app.post("/campgrounds", function(req, res){
