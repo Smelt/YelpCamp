@@ -17,7 +17,7 @@ router.get("/", function (req, res) {
     // res.render("campgrounds", {campgrounds: campgrounds});
 });
 
-router.post("/", function (req, res) {
+router.post("/", isLoggedIn, function (req, res) {
     //get data from form add to campgrounds array
     //redirect back to campgrounds
     var name = req.body.name;
@@ -35,7 +35,7 @@ router.post("/", function (req, res) {
 
 });
 
-router.get("/new", function (req, res) {
+router.get("/new", isLoggedIn, function (req, res) {
     res.render("campgrounds/new");
 });
 

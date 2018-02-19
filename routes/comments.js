@@ -6,13 +6,10 @@ var Comment = require("../models/comment");
 
 //Comments new
 router.get("/new", isLoggedIn,  function(req, res){
-    console.log("At 1");
     Campground.findById(req.params.id, function(err, campground){
         if(err){
-            console.log("Failing 2");
             console.log(err);
         }else{
-            console.log("blah blah");
             res.render("comments/new.ejs", { campground: campground });
         }
     });
@@ -21,7 +18,6 @@ router.get("/new", isLoggedIn,  function(req, res){
 
 //comments create
 router.post("/", isLoggedIn, function(req, res){
-    console.log("posting man");
     //lookup campground using ID    
     Campground.findById(req.params.id, function(err, campground){
         if(err){
@@ -34,6 +30,11 @@ router.post("/", isLoggedIn, function(req, res){
                     console.log(err);
                 }
                 else{
+                    //add username and ID to a comment
+                    comment.author.id = req.user._id;
+                    comment.author.username = req.user.username;
+                    comment.save();
+                    console.log(comment);
                     campground.comments.push(comment._id);
                     campground.save();
                     let url = "/campgrounds/" + req.params.id;
